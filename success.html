@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank you — ArbiBet</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #080a08; color: #d4dbd4;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px; -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      background: #0e110e; border: 1px solid #242924;
+      border-radius: 16px; padding: 48px; max-width: 520px;
+      width: 100%; text-align: center; position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #00d472, #00ff8b);
+    }
+    .logo { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; margin-bottom: 24px; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: 32px; color: #fff; margin-bottom: 8px; }
+    h1 em { font-style: italic; color: #00d472; }
+    .sub { color: #748074; font-size: 15px; line-height: 1.7; margin-bottom: 32px; }
+    .steps {
+      background: #080a08; border: 1px solid #1c211c;
+      border-radius: 10px; padding: 24px; text-align: left; margin-bottom: 28px;
+    }
+    .steps-label {
+      font-size: 10px; font-family: 'DM Mono', monospace; letter-spacing: 2px;
+      color: #3e463e; margin-bottom: 16px;
+    }
+    .step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+    .step:last-child { margin-bottom: 0; }
+    .step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #131613; border: 1px solid #242924;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: #3e463e; font-family: 'DM Mono', monospace; flex-shrink: 0;
+    }
+    .step-text { font-size: 13px; color: #b4bcb4; line-height: 1.6; }
+    .step-text strong { color: #fff; }
+    .step-text a { color: #00d472; text-decoration: none; }
+    .btn-download {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; background: #00d472; color: #000; border: none;
+      padding: 16px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none;
+      transition: opacity .15s;
+    }
+    .btn-download:hover { opacity: .9; }
+    .note { margin-top: 16px; font-size: 12px; color: #3e463e; line-height: 1.6; }
+    .note a { color: #748074; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="/logo.png" alt="ArbiBet" class="logo"/>
+    <h1>You're in.<br/><em>Let's find some edges.</em></h1>
+    <p class="sub">Your licence key has been sent to your email. Check your inbox — it should arrive within a minute.</p>
+
+    <div class="steps">
+      <div class="steps-label">GETTING STARTED</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Download <strong>ArbiBet.exe</strong> using the button below and run it</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Get a free API key at <a href="https://the-odds-api.com" target="_blank">the-odds-api.com</a> — takes 2 minutes, no card needed</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Enter your <strong>licence key</strong> (from your email) and <strong>API key</strong> on first launch</div>
+      </div>
+    </div>
+
+    <a href="/ArbiBet.exe" class="btn-download" download>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v10M5 8l4 4 4-4" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15h12" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Download ArbiBet.exe
+    </a>
+
+    <p class="note">
+      Keep your licence key safe — you'll need it if you reinstall.<br/>
+      Any issues? <a href="mailto:support@getarbibet.com">support@getarbibet.com</a>
+    </p>
+  </div>
+</body>
+</html>
