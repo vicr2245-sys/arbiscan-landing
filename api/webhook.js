@@ -1,5 +1,74 @@
 import Stripe from 'stripe';
-import { createHmac, randomBytes } from 'crypto';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+async function sendEmail(to) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'ArbiBet <noreply@getarbibet.com>',
+      to,
+      subject: 'Your ArbiBet download is ready',
+      html: `
+        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#080a08;color:#d4dbd4;padding:40px;border-radius:12px">
+          <h1 style="font-size:24px;color:#ffffff;margin-bottom:8px">You're in.</h1>
+          <p style="color:#748074;margin-bottom:24px">Thanks for purchasing ArbiBet. Here's how to get started in 3 minutes.</p>
+
+          <p style="font-weight:600;color:#fff;margin-bottom:12px">Getting started:</p>
+          <ol style="color:#748074;line-height:2;padding-left:20px">
+            <li>Download and run <strong style="color:#fff">ArbiBet.exe</strong> from the link below</li>
+            <li>Get a free API key at <a href="https://the-odds-api.com" style="color:#00d472">the-odds-api.com</a> — takes 2 minutes, no card needed</li>
+            <li>Paste your API key on the first screen and hit Connect</li>
+          </ol>
+
+          <a href="https://getarbibet.com/success" style="display:inline-block;margin-top:28px;background:#00d472;color:#000;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">
+            Download ArbiBet
+          </a>
+
+          <p style="margin-top:32px;font-size:12px;color:#3e463e">
+            Any issues? Reply to this email.<br/>— The ArbiBet Team
+          </p>
+        </div>
+      `,
+    }),
+  });
+  if (!res.ok) throw new Error(`Email failed: ${await res.text()}`);
+}
+
+// Store licence key in Vercel KV or environment-based store
+const LICENCE_STORE = process.env.LICENCE_STORE ? JSON.parse(process.env.LICENCE_STORE) : {};
+
+export const config = { api: { bodyParser: false } };
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  try {
+    const chunks = [];
+    for await (const chunk of req) chunks.push(chunk);
+    const rawBody = Buffer.concat(chunks);
+    event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    return res.status(400).json({ error: `Webhook error: ${err.message}` });
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const email   = session.customer_details?.email;
+    if (email) {
+      try { await sendEmail(email); } catch (e) { console.error('Email error:', e.message); }
+    }
+  }
+
+  res.status(200).json({ received: true });
+}
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
