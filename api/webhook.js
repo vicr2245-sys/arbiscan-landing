@@ -38,7 +38,7 @@ async function sendEmail(to, licenceKey) {
             <li>Enter your licence key and API key on first launch</li>
           </ol>
 
-          <a href="https://drive.google.com/file/d/1zt0Y_Wg87mij4B_KGZpt4XsusqNNrmz1/view?usp=drive_link" style="display:inline-block;margin-top:28px;background:#00d472;color:#000;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">
+          <a href="https://drive.google.com/file/d/1zt0Y_Wg87mij4B_KGZpt4XsusqNNrmz1/view?usp=sharing" style="display:inline-block;margin-top:28px;background:#00d472;color:#000;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">
             Download ArbiBet
           </a>
 
